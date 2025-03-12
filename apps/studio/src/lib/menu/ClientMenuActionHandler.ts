@@ -1,60 +1,101 @@
-import { IMenuActionHandler } from '@/common/interfaces/IMenuActionHandler'
-import _ from 'lodash'
-import {AppEvent} from '../../common/AppEvent'
-import rawLog from '@bksLogger'
+import { IMenuActionHandler } from "@/common/interfaces/IMenuActionHandler";
+import _ from "lodash";
+import { AppEvent } from "../../common/AppEvent";
+import rawLog from "@bksLogger";
 
-const log = rawLog.scope("ClientMenuActionHandler")
+declare module "vue/types/vue" {
+  interface Vue {
+    $modal: {
+      show: (modalName: string) => void;
+    };
+  }
+}
 
+declare module "vue/types/vue" {
+  interface VueConstructor {
+    $modal: {
+      show: (modalName: string) => void;
+    };
+  }
+}
+
+declare global {
+  interface Window {
+    eventBus?: {
+      $emit: (event: string, ...args: any[]) => void;
+    };
+  }
+}
+
+const log = rawLog.scope("ClientMenuActionHandler");
 
 function send(name: string, arg?: any) {
-  log.debug("Sending menu action to electron thread", name, arg)
+  log.debug("Sending menu action to electron thread", name, arg);
   window.main.send(AppEvent.menuClick, name, arg);
 }
 
 export default class ClientMenuActionHandler implements IMenuActionHandler {
-
   constructor() {
-    // TODO: implement
+    console.log("ClientMenuActionHandler initialized"); // Direct console log
   }
-  upgradeModal = () => send('upgradeModal')
+  upgradeModal = () => send("upgradeModal");
 
-  quit = () => send('quit')
-  undo = () => send('undo')
-  redo = () => send('redo')
-  cut = () => send('cut')
-  copy = () => send('copy')
-  paste = () => send('paste')
-  selectAll = () => send('selectAll')
-  zoomreset = () => send('zoomreset')
-  zoomin = () => send('zoomin')
-  zoomout = () => send('zoomout')
-  fullscreen = () => send('fullscreen')
-  about = () => send('about')
-  devtools = () => send('devtools')
-  opendocs = () => send('opendocs')
-  contactSupport = () => send('contactSupport')
-  newWindow = () => send('newWindow')
-  newQuery = () => send('newQuery')
-  newTab = () => send('newTab')
-  closeTab = () => send('closeTab')
-  quickSearch  = () => send('quickSearch')
+  quit = () => send("quit");
+  undo = () => send("undo");
+  redo = () => send("redo");
+  cut = () => send("cut");
+  copy = () => send("copy");
+  paste = () => send("paste");
+  selectAll = () => send("selectAll");
+  zoomreset = () => send("zoomreset");
+  zoomin = () => send("zoomin");
+  zoomout = () => send("zoomout");
+  fullscreen = () => send("fullscreen");
+  about = () => send("about");
+  devtools = () => send("devtools");
+  opendocs = () => send("opendocs");
+  contactSupport = () => send("contactSupport");
+  newWindow = () => send("newWindow");
+  newQuery = () => send("newQuery");
+  newTab = () => send("newTab");
+  closeTab = () => send("closeTab");
+  quickSearch = () => send("quickSearch");
   switchTheme = (menuItem: Electron.MenuItem) => {
-    const label = _.isString(menuItem) ? menuItem : menuItem.label
-    send('switchTheme', label.toLowerCase().replaceAll(" ", "-"))
-  }
-  reload = () => send('reload')
-  disconnect = () => send('disconnect')
-  addBeekeeper = () => send('addBeekeeper')
-  toggleSidebar = () => send('toggleSidebar')
-  enterLicense = () => send('enterLicense')
-  backupDatabase = () => send('backupDatabase')
-  restoreDatabase = () => send('restoreDatabase')
-  exportTables = () => send('exportTables')
-  checkForUpdates = () => send('checkForUpdates')
-  importSqlFiles = () => send('importSqlFiles')
-  toggleMinimalMode = () => send('toggleMinimalMode')
-  switchLicenseState = (_menuItem, _win, type) => send('switchLicenseState', type)
+    const label = _.isString(menuItem) ? menuItem : menuItem.label;
+    send("switchTheme", label.toLowerCase().replaceAll(" ", "-"));
+  };
+  reload = () => send("reload");
+  disconnect = () => send("disconnect");
+  addBeekeeper = () => send("addBeekeeper");
+  toggleSidebar = () => send("toggleSidebar");
+  enterLicense = () => send("enterLicense");
+  backupDatabase = () => send("backupDatabase");
+  restoreDatabase = () => send("restoreDatabase");
+  exportTables = () => send("exportTables");
+  checkForUpdates = () => send("checkForUpdates");
+  importSqlFiles = () => send("importSqlFiles");
+  toggleMinimalMode = () => send("toggleMinimalMode");
+  switchLicenseState = (_menuItem, _win, type) =>
+    send("switchLicenseState", type);
   toggleBeta = (menuItem) => {
-    send('toggleBeta', menuItem);
-  }
+    send("toggleBeta", menuItem);
+  };
+  // Completely revised openThemeManager method
+  openThemeManager = () => {
+    console.log("Theme menu clicked"); // Direct console log
+
+    // Try to directly show the modal using the global modal plugin
+    try {
+      if (window.Vue && window.Vue.$modal) {
+        console.log("Showing theme manager modal via Vue.$modal");
+        window.Vue.$modal.show("theme-manager-modal");
+        return;
+      }
+    } catch (e) {
+      console.error("Error showing modal directly:", e);
+    }
+
+    // Fallback to using IPC
+    window.main.send(AppEvent.openThemeManager);
+  };
 }

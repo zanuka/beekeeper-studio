@@ -1,44 +1,43 @@
 // import { OpenOptions } from "@/background/WindowBuilder"
 
-import { DevLicenseState } from "@/lib/license";
-
-type ElectronWindow = Electron.BrowserWindow | undefined
-
-
 export interface IMenuActionHandler {
-  toggleSidebar: (menuItem: Electron.MenuItem, browserWindow: ElectronWindow) => void
-  quit: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  undo: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  redo: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  cut: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  copy: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  paste: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  selectAll?: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  zoomreset: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  zoomin: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  zoomout: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  fullscreen: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  about: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  devtools: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  opendocs: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  contactSupport: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  newWindow: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  newQuery: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  newTab: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  closeTab: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  quickSearch: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  switchTheme: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  reload: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  disconnect: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  addBeekeeper: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  enterLicense: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  backupDatabase: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  restoreDatabase: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  exportTables: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  upgradeModal: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  checkForUpdates: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  importSqlFiles: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  toggleMinimalMode: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
-  switchLicenseState: (menuItem: Electron.MenuItem, win: ElectronWindow, state: DevLicenseState) => void
-  toggleBeta: (menuItem: Electron.MenuItem, win: ElectronWindow) => void
+  upgradeModal: () => void;
+  quit: () => void;
+  undo: () => void;
+  redo: () => void;
+  cut: () => void;
+  copy: () => void;
+  paste: () => void;
+  selectAll: () => void;
+  zoomreset: () => void;
+  zoomin: () => void;
+  zoomout: () => void;
+  fullscreen: () => void;
+  about: () => void;
+  devtools: () => void;
+  checkForUpdates: () => void;
+  opendocs: () => void;
+  contactSupport: () => void;
+  reload: () => void;
+  newWindow: () => void;
+  addBeekeeper: () => void;
+  newQuery: () => void;
+  closeTab: () => void;
+  importSqlFiles: () => void;
+  quickSearch: () => void;
+  disconnect: () => void;
+  toggleSidebar: () => void;
+  openThemeManager: (
+    menuItem: Electron.MenuItem,
+    win: Electron.BrowserWindow
+  ) => void;
+  enterLicense: () => void;
+  backupDatabase: () => void;
+  restoreDatabase: () => void;
+  exportTables: () => void;
+  toggleMinimalMode: () => void;
+  switchLicenseState: (_menuItem: any, _win: any, type: any) => void;
+  toggleBeta: (menuItem: any) => void;
+  newTab: () => void;
+  switchTheme: (menuItem: Electron.MenuItem) => void;
 }

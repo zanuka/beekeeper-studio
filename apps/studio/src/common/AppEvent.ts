@@ -4,7 +4,7 @@ import rawLog from '@bksLogger'
 const log = rawLog.scope('AppEvent')
 
 export enum AppEvent {
-  menuClick = 'menu-click',
+  menuClick = 'menuClick',
   settingsChanged = "sc-refresh",
   newTab = 'nt',
   closeTab = 'ct',
@@ -54,6 +54,7 @@ export enum AppEvent {
   switchLicenseState = 'switchLicenseState',
   toggleBeta = 'toggleBeta',
   switchUserKeymap = 'switchUserKeymap',
+  openThemeManager = 'openThemeManager',
 }
 
 export interface RootBinding {

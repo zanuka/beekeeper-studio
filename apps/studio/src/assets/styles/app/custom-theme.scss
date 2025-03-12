@@ -1,0 +1,57 @@
+// Custom theme support
+body.theme-custom {
+  // Theme variables are set dynamically via JS
+  // This file provides the structure for custom themes
+
+  background: var(--theme-bg);
+  color: var(--theme-base);
+
+  // Text colors
+  --text-dark: var(--text-dark, rgba(var(--theme-base), 0.87));
+  --text: var(--text, rgba(var(--theme-base), 0.67));
+  --text-light: var(--text-light, rgba(var(--theme-base), 0.57));
+  --text-lighter: var(--text-lighter, rgba(var(--theme-base), 0.37));
+  --text-hint: var(--text-hint, rgba(var(--theme-base), 0.37));
+  --text-disabled: var(--text-disabled, rgba(var(--theme-base), 0.37));
+
+  // Brand colors
+  --brand-info: var(--brand-info, var(--theme-secondary));
+  --brand-success: var(--brand-success, #15db95);
+  --brand-warning: var(--brand-warning, #ff8d21);
+  --brand-danger: var(--brand-danger, #ff5d59);
+  --brand-default: var(--brand-default, rgba(var(--theme-base), 0.57));
+  --brand-purple: var(--brand-purple, #9858ff);
+  --brand-pink: var(--brand-pink, #ff78f7);
+  --brand-primary: var(--brand-primary, var(--theme-primary));
+  --brand-secondary: var(--brand-secondary, var(--theme-secondary));
+
+  // App colors
+  --border-color: var(--border-color, rgba(var(--theme-base), 0.1));
+  --link-color: var(--link-color, var(--text-dark));
+  --placeholder: var(--placeholder, var(--text-hint));
+  --selection: var(--selection, rgba(var(--theme-primary), 0.2));
+  --input-highlight: var(--input-highlight, rgba(var(--theme-base), 0.27));
+
+  // UI elements
+  --query-editor-bg: var(--query-editor-bg, darken(var(--theme-bg), 6%));
+  --row-handle-selected: var(
+    --row-handle-selected,
+    lighten(var(--query-editor-bg), 5%)
+  );
+  --row-handle-hover: var(
+    --row-handle-hover,
+    lighten(var(--query-editor-bg), 5%)
+  );
+
+  --titlebar-bg: var(--titlebar-bg, transparent);
+  --global-sidebar-bg: var(--global-sidebar-bg, transparent);
+  --sidebar-bg: var(--sidebar-bg, darken(var(--theme-bg), 3%));
+  --sidebar-heading-bg: var(--sidebar-heading-bg, var(--theme-bg));
+  --tabs-bg: var(--tabs-bg, transparent);
+  --statusbar-bg: var(--statusbar-bg, rgba(var(--theme-base), 0.1));
+
+  --statusbar-text: var(--statusbar-text, black);
+  --statusbar-text-default: var(--statusbar-text-default, white);
+
+  // CodeMirror theme is applied separately via JS
+}
