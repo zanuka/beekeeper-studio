@@ -1,0 +1,59 @@
+{
+  "name": "One Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#282c34",
+    "editor.foreground": "#abb2bf",
+    "editorCursor.foreground": "#528bff",
+    "editor.selectionBackground": "#3e4451",
+    "editor.lineHighlightBackground": "#2c313c",
+    "editorLink.activeForeground": "#61afef",
+    "button.background": "#4d78cc",
+    "button.foreground": "#ffffff",
+    "button.hoverBackground": "#5a87d6",
+    "terminal.ansiBlue": "#61afef",
+    "terminal.ansiGreen": "#98c379",
+    "terminal.ansiRed": "#e06c75",
+    "terminal.ansiYellow": "#e5c07b",
+    "terminal.ansiMagenta": "#c678dd",
+    "terminal.ansiCyan": "#56b6c2"
+  },
+  "tokenColors": [
+    {
+      "scope": ["keyword", "storage"],
+      "settings": {
+        "foreground": "#c678dd"
+      }
+    },
+    {
+      "scope": ["string"],
+      "settings": {
+        "foreground": "#98c379"
+      }
+    },
+    {
+      "scope": ["constant"],
+      "settings": {
+        "foreground": "#d19a66"
+      }
+    },
+    {
+      "scope": ["comment"],
+      "settings": {
+        "foreground": "#5c6370"
+      }
+    },
+    {
+      "scope": ["variable", "parameter"],
+      "settings": {
+        "foreground": "#e06c75"
+      }
+    },
+    {
+      "scope": ["function", "entity.name.function"],
+      "settings": {
+        "foreground": "#61afef"
+      }
+    }
+  ]
+}

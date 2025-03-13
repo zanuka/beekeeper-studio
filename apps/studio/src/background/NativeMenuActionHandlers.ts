@@ -23,7 +23,6 @@ function getIcon() {
   );
 }
 
-
 export default class NativeMenuActionHandlers implements IMenuActionHandler {
   constructor(private settings: IGroupedUserSettings) {}
 

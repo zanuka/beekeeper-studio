@@ -2,6 +2,7 @@ import { Theme } from "./ThemeParser";
 import themeParser from "./ThemeParser";
 import { SettingsPlugin } from "../../plugins/SettingsPlugin";
 import _ from "lodash";
+import bundledThemes from "./bundled";
 
 // Add a logger
 import rawLog from "@bksLogger";
@@ -94,6 +95,41 @@ export class ThemeManager {
         source: "custom",
       },
     ];
+
+    // Load bundled themes
+    this.loadBundledThemes();
+  }
+
+  /**
+   * Load bundled VSCode themes
+   */
+  private loadBundledThemes(): void {
+    log.debug("Loading bundled themes");
+    try {
+      bundledThemes.forEach((themeData) => {
+        const themeId = `theme-${themeData.name
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "-")}`;
+
+        // Create theme object
+        const theme: Theme = {
+          id: themeId,
+          name: themeData.name,
+          type: themeData.type || "dark",
+          colors: themeData.colors || {},
+          tokenColors: themeData.tokenColors || [],
+          source: "vscode",
+        };
+
+        // Add to themes array
+        this.themes.push(theme);
+        log.debug(`Added bundled theme: ${theme.name}`);
+      });
+
+      log.debug(`Loaded ${bundledThemes.length} bundled themes`);
+    } catch (error) {
+      log.error("Error loading bundled themes:", error);
+    }
   }
 
   /**
@@ -225,14 +261,14 @@ export class ThemeManager {
    */
   private async saveThemes(): Promise<void> {
     log.debug("Saving themes to settings");
-    // Only save custom themes (not built-in)
+    // Only save custom themes (not built-in or bundled)
     const customThemes = this.themes.filter(
       (t) =>
         !["dark", "light", "solarized-dark", "solarized", "system"].includes(
           t.id
-        )
+        ) && t.source === "custom"
     );
-    await SettingsPlugin.set("customThemes", JSON.stringify(customThemes));
+    await SettingsPlugin.set("customThemes", customThemes);
   }
 
   /**
@@ -295,19 +331,31 @@ export class ThemeManager {
 
     // Derive other variables if not set
     if (!cssVars["--text-dark"]) {
-      cssVars["--text-dark"] = `rgba(${cssVars["--theme-base"]}, 0.87)`;
+      cssVars["--text-dark"] =
+        theme.type === "dark"
+          ? "rgba(255, 255, 255, 0.87)"
+          : "rgba(0, 0, 0, 0.87)";
     }
 
     if (!cssVars["--text"]) {
-      cssVars["--text"] = `rgba(${cssVars["--theme-base"]}, 0.67)`;
+      cssVars["--text"] =
+        theme.type === "dark"
+          ? "rgba(255, 255, 255, 0.67)"
+          : "rgba(0, 0, 0, 0.67)";
     }
 
     if (!cssVars["--text-light"]) {
-      cssVars["--text-light"] = `rgba(${cssVars["--theme-base"]}, 0.57)`;
+      cssVars["--text-light"] =
+        theme.type === "dark"
+          ? "rgba(255, 255, 255, 0.57)"
+          : "rgba(0, 0, 0, 0.57)";
     }
 
     if (!cssVars["--text-lighter"]) {
-      cssVars["--text-lighter"] = `rgba(${cssVars["--theme-base"]}, 0.37)`;
+      cssVars["--text-lighter"] =
+        theme.type === "dark"
+          ? "rgba(255, 255, 255, 0.37)"
+          : "rgba(0, 0, 0, 0.37)";
     }
 
     return cssVars;

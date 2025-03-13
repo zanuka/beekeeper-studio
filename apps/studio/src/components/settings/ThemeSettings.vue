@@ -27,6 +27,12 @@
       </button>
     </div>
 
+    <!-- Add theme gallery component -->
+    <theme-gallery
+      :themes="themes"
+      :selectedThemeId="selectedTheme"
+      @theme-selected="onThemeSelected"
+    />
     <div class="theme-preview">
       <h4>Theme Preview</h4>
       <div class="preview-container" :class="previewClass">
@@ -72,9 +78,13 @@
 import Vue from "vue";
 import themeManager from "../../lib/themes/ThemeManager";
 import { Theme } from "../../lib/themes/ThemeParser";
+import ThemeGallery from "./ThemeGallery.vue";
 
 export default Vue.extend({
   name: "ThemeSettings",
+  components: {
+    ThemeGallery,
+  },
 
   data() {
     return {
@@ -116,6 +126,11 @@ export default Vue.extend({
     async changeTheme() {
       await themeManager.setActiveTheme(this.selectedTheme);
       this.$emit("theme-changed", this.selectedTheme);
+    },
+
+    onThemeSelected(themeId: string) {
+      this.selectedTheme = themeId;
+      this.changeTheme();
     },
 
     importTheme() {
